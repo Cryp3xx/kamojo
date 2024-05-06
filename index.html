@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Validace jména</title>
+</head>
+<body>
+    <form id="nameForm">
+        <label for="name">Jméno:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Odeslat</button>
+        <p id="message"></p>
+    </form>
+    <form id="passwordForm">
+        <label for="password">Heslo:</label>
+        <input type="password" id="password" required>
+        <label for="confirmPassword">Potvrzení hesla:</label>
+        <input type="password" id="confirmPassword" required>
+        <button type="submit">Odeslat</button>
+        <p id="message"></p>
+
+        <form id="ageForm">
+            <label for="age">Věk:</label>
+            <input type="number" id="age" name="age" required>
+            <button type="submit">Odeslat</button>
+            <p id="message"></p>
+        </form>
+    
+    <script>
+
+        document.getElementById("nameForm").onsubmit = function(event) {
+            event.preventDefault();
+            var name = document.getElementById("name").value;
+            var message = document.getElementById("message");
+            if (name.length < 3 || name.length > 20) {
+                message.textContent = "Jméno musí mít 3 až 20 znaků.";
+            } else {
+                message.textContent = "Jméno je v pořádku.";
+            }
+        };
+
+        document.getElementById("passwordForm").onsubmit = function(event) {
+            event.preventDefault();
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var message = document.getElementById("message");
+
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                message.textContent = "Heslo musí mít alespoň 8 znaků a obsahovat velké písmeno, malé písmeno a číslo.";
+            } else if (password !== confirmPassword) {
+                message.textContent = "Hesla se neshodují.";
+            } else {
+                message.textContent = "Heslo je v pořádku.";
+            }
+        };
+
+        document.getElementById("ageForm").onsubmit = function(event) {
+            event.preventDefault();
+            var age = document.getElementById("age").value;
+            var message = document.getElementById("message");
+            if (age < 18 || age > 100) {
+                message.textContent = "Věk musí být mezi 18 a 100 lety.";
+            } else {
+                message.textContent = "Věk je v pořádku.";
+            }
+        };
+    </script>
+</body>
+</html>
